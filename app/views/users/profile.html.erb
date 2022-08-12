@@ -1,0 +1,39 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-4">
+            <%= image_tag(@user.avatar, style:"width: 150px; height: 150px; border-radius: 50%") if @user.avatar.attached? %>
+        </div>
+        <div class="col-8">
+            <h1><%= @user.name %></h1>
+            <h6>
+                <%= pluralize(@user.comments.size, "Comment") %> |
+                <%= pluralize(@user.views, "view") %> |
+                <%= pluralize(@total_views, "Total Post View") %>
+            </h6>
+            <p style="margin-top: 10px; margin-bottom: 10px;">Hello! My name is <%= @user.name %> and I really would like to work with you! </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+        </div>
+        <div class="col-10">
+            <% @posts.each do |post| %>
+                <div class="card mt-3">
+                    <% if (current_user == @user) || (current_user == @user.admin?) %>
+                        <div class="link-group d-flex">
+                            <%= link_to "Edit this post", edit_post_path(post), class: "btn btn-primary" %>
+                            <%= button_to "Destroy this post", post_path(post), method: :delete, class:"btn btn-warning" %>
+                        </div>
+                    <% end %>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= link_to post.title, post %></h5>
+                        <p class="card-text"><%= "#{time_ago_in_words(post.created_at)} ago" %></p>
+                        <p class="card-text"><%= post.body.to_plain_text.truncate_words(100) %></p>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+        <div class="col-1">
+        </div>
+    </div>
+</div>
