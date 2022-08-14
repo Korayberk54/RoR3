@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_053611) do
+ActiveRecord::Schema.define(version: 2022_08_14_112524) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -74,7 +77,7 @@ ActiveRecord::Schema.define(version: 2022_03_23_053611) do
     t.string "recipient_type", null: false
     t.integer "recipient_id", null: false
     t.string "type", null: false
-    t.json "params"
+    t.jsonb "params"
     t.datetime "read_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
